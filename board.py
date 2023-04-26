@@ -87,3 +87,31 @@ class Board:
             (numpy.ndarray) the values in the given column
         """
         return self.grid[:, col]
+    
+    def fix_board_values(self):
+        """
+        Return copy of board with all non-zero values set to 1.
+
+        returns:
+            (numpy.ndarray) copy of the board with all non-zero values set to 1
+        """
+        board_copy = self.grid.copy()
+        return np.where(board_copy != 0, 1, board_copy)
+    
+    def get_subgrid(self, row, col):
+        """
+        Get the 3x3 subgrid containing the given row and column.
+
+        args:
+            row(int): the row of the cell between 0 and 8
+            col(int): the column of the cell between 0 and 8
+
+        returns:
+            (numpy.ndarray) the 3x3 subgrid containing the given row and column
+        """
+        row_start = row - row % 3
+        col_start = col - col % 3
+        return self.grid[row_start:row_start + 3, col_start:col_start + 3]
+
+    def copy(self):
+        
