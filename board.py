@@ -13,9 +13,23 @@ class Board:
     
     def __repr__(self):
         """
-        Return a string representation of the board.
+        Create a formatted string representation of the board.
+
+        returns:
+            (str) a formatted string representation of the board with
+            horizontal and vertical lines
         """
-        return str(self.grid)
+        lines = ["-" * 25]
+        for i in range(9):
+            line = "| "
+            for j in range(9):
+                line += str(self.grid[i][j]) + " "
+                if j % 3 == 2:
+                    line += "| "
+            lines.append(line)
+            if i % 3 == 2:
+                lines.append("-" * 25)
+        return "\n".join(lines)
         
     def get_val(self, row, col):
         """

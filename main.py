@@ -11,4 +11,4 @@ puzzle = [0, 0, 3, 0, 2, 0, 6, 0, 0,
           0, 0, 5, 0, 1, 0, 3, 0, 0]
 
 board = Board(puzzle)
-print(board.get_col(6))
+print(board)
