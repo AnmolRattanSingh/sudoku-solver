@@ -112,6 +112,3 @@ class Board:
         row_start = row - row % 3
         col_start = col - col % 3
         return self.grid[row_start:row_start + 3, col_start:col_start + 3]
-
-    def copy(self):
-        

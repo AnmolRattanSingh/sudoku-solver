@@ -1,4 +1,5 @@
 from board import Board
+from board_util import randomizeSudoku
 
 puzzle = [0, 0, 3, 0, 2, 0, 6, 0, 0,
           9, 0, 0, 3, 0, 5, 0, 0, 1,
@@ -12,3 +13,5 @@ puzzle = [0, 0, 3, 0, 2, 0, 6, 0, 0,
 
 board = Board(puzzle)
 print(board)
+
+print(randomizeSudoku(board))
