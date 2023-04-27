@@ -1,5 +1,6 @@
 import numpy as np
 
+
 class Board:
     def __init__(self, puzzle):
         """
@@ -10,7 +11,9 @@ class Board:
             puzzle(list): a list of 81 integers, where 0 represents an empty cell
         """
         self.grid = np.array(puzzle).reshape((9, 9))
-    
+        board_copy = self.grid.copy()
+        self.fixedValues = np.where(board_copy != 0, 1, board_copy)
+
     def __repr__(self):
         """
         Create a formatted string representation of the board.
@@ -30,8 +33,8 @@ class Board:
             if i % 3 == 2:
                 lines.append("-" * 25)
         return "\n".join(lines)
-        
-    def get_val(self, row, col):
+
+    def getVal(self, row, col):
         """
         Get the value at a given row and column.
 
@@ -46,8 +49,8 @@ class Board:
             return self.grid[row][col]
         except IndexError:
             raise IndexError(f"Invalid row or column: {row}, {col}")
-    
-    def set_val(self, row, col, val):
+
+    def setVal(self, row, col, val):
         """
         Set the value at a given row and column.
 
@@ -60,8 +63,8 @@ class Board:
             self.grid[row][col] = val
         else:
             raise ValueError(f"Invalid value: {val}")
-        
-    def get_row(self, row):
+
+    def getRow(self, row):
         """
         Get the values in a given row.
 
@@ -75,8 +78,8 @@ class Board:
             return self.grid[row]
         except IndexError:
             raise IndexError(f"Invalid row: {row}")
-    
-    def get_col(self, col):
+
+    def getCol(self, col):
         """
         Get the values in a given column.
 
@@ -87,18 +90,8 @@ class Board:
             (numpy.ndarray) the values in the given column
         """
         return self.grid[:, col]
-    
-    def fix_board_values(self):
-        """
-        Return copy of board with all non-zero values set to 1.
 
-        returns:
-            (numpy.ndarray) copy of the board with all non-zero values set to 1
-        """
-        board_copy = self.grid.copy()
-        return np.where(board_copy != 0, 1, board_copy)
-    
-    def get_subgrid(self, row, col):
+    def getSubgrid(self, row, col):
         """
         Get the 3x3 subgrid containing the given row and column.
 
@@ -111,4 +104,4 @@ class Board:
         """
         row_start = row - row % 3
         col_start = col - col % 3
-        return self.grid[row_start:row_start + 3, col_start:col_start + 3]
+        return self.grid[row_start : row_start + 3, col_start : col_start + 3]
