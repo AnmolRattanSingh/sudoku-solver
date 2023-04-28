@@ -61,6 +61,8 @@ while not solution_found:
         elif cost >= previous_cost:
             stuck_counter += 1
             print("stuck_counter", stuck_counter)
+        else:
+            stuck_counter = 0
         if stuck_counter >= 100:
             temp += 2
         if bu.boardCost(temp_board) == 0:
