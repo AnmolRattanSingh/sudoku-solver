@@ -2,6 +2,7 @@ import numpy as np
 import random
 from board import Board
 from copy import deepcopy
+import math
 
 
 def randomizeSudoku(board):
@@ -99,12 +100,9 @@ def boardCost(board):
     """
     cost = 0
     # check duplicate values in rows
-    for r in range(9):
-        cost += len(board.getRow(r)) - len(set(board.getRow(r)))
-    # check duplicate values in columns
-    for c in range(9):
-        cost += len(board.getCol(c)) - len(set(board.getCol(c)))
-    
+    for i in range(9):
+        cost += (9 - len(np.unique(board.getRow(i))) + (9 - len(np.unique(board.getCol(i)))))
+
     return cost
 
 def initialTemp(board):
@@ -142,23 +140,27 @@ def totalIterations(board):
     """
     return len(np.where(board.fixedValues == 0)) ** 2
 
-def chooseNewBoard(sudoku_board, cost):
+def chooseNewBoard(sudoku_board, cost, temp):
     """
     Choose a new board based on current board and temperature.
 
     args:
         board(Board): the current board
-        cost(int): the current temperature
+        cost(int): the current board cost (total errors)
+        temp(float): the current temperature
 
     returns:
         (Board) the new board
     """
+    print("cost before: ", boardCost(sudoku_board))
     cell_1, cell_2 = selectTwoCells(sudoku_board)
     board_proposed = flipCells(sudoku_board, cell_1, cell_2)
     cost_proposed = boardCost(board_proposed)
+    print("cost after: ", cost_proposed)
     delta_cost = cost_proposed - cost
-    prob = np.exp(-delta_cost / cost)
+    print(delta_cost)
+    prob = math.exp(-delta_cost / temp)
     if np.random.uniform(1,0,1) < prob:
-        return board_proposed, cost_proposed
+        return board_proposed, delta_cost
     else:
-        return sudoku_board, cost
+        return sudoku_board, 0

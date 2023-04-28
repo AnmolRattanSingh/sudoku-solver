@@ -59,10 +59,7 @@ class Board:
             col(int): the column of the cell between 0 and 8
             val(int): the value to set the cell to, between 1 and 9
         """
-        if val in range(1, 10):
-            self.grid[row][col] = val
-        else:
-            raise ValueError(f"Invalid value: {val}")
+        self.grid[row][col] = val
 
     def getRow(self, row):
         """
