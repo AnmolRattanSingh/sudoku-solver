@@ -47,13 +47,13 @@ while not solution_found:
         for i in range(iterations):
             print("Best Board Cost: ", cost)
             print("First", temp_board)
-            temp_board, cost_diff = bu.chooseNewBoard(temp_board, cost, temp)
+            temp_board, cost_diff = bu.chooseNewBoard(temp_board, board, cost, temp)
             print(temp_board)
             cost += cost_diff
             if cost <= 0:
                 solution_found = True
                 # print("Solution Found: ", bu.boardCost(temp_board))
-                # print(temp_board)
+                print(temp_board)
                 break
         temp *= temp_decrease
         if cost <= 0:
@@ -65,7 +65,7 @@ while not solution_found:
             temp += 2
         if bu.boardCost(temp_board) == 0:
             print("Solution Found: ", bu.boardCost(temp_board))
-            # print(temp_board)
+            print(temp_board)
             break
     
 

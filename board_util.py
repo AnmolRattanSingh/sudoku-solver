@@ -88,6 +88,19 @@ def flipCells(board, cell_1, cell_2):
 
     return new_board
 
+def rowColCost(board, r, c):
+    """
+    Calculate the cost of a row on the board.
+
+    args:
+        board(Board): the board whose row cost is to be calculated
+        r(int): the row to calculate the cost for
+
+    returns:
+        (int) the cost of the row
+    """
+    return (9 - len(np.unique(board.getRow(r))) + (9 - len(np.unique(board.getCol(c)))))
+
 def boardCost(board):
     """
     Calculate sum of duplicate values in each row and column of the board.
@@ -101,7 +114,7 @@ def boardCost(board):
     cost = 0
     # check duplicate values in rows
     for i in range(9):
-        cost += (9 - len(np.unique(board.getRow(i))) + (9 - len(np.unique(board.getCol(i)))))
+        cost += rowColCost(board, i, i)
 
     return cost
 
@@ -140,7 +153,19 @@ def totalIterations(board):
     """
     return len(np.where(board.fixedValues == 0)) ** 2
 
-def chooseNewBoard(sudoku_board, cost, temp):
+def proposedState(current_board, initial_board):
+    # pass in random subgrid to getSubgridSum
+    subgrid_sum = current_board.getSubgridSum(
+        initial_board.getSubgrid(random.choice([0, 3, 6]), random.choice([0, 3, 6]), fixed=True)
+    )
+    if subgrid_sum > 6:
+        return current_board, 0
+    cell_1, cell_2 = selectTwoCells(current_board)
+    board_proposed = flipCells(current_board, cell_1, cell_2)
+
+    return board_proposed, (cell_1, cell_2)
+
+def chooseNewBoard(current_board, initial_board, cost, temp):
     """
     Choose a new board based on current board and temperature.
 
@@ -152,15 +177,15 @@ def chooseNewBoard(sudoku_board, cost, temp):
     returns:
         (Board) the new board
     """
-    print("cost before: ", boardCost(sudoku_board))
-    cell_1, cell_2 = selectTwoCells(sudoku_board)
-    board_proposed = flipCells(sudoku_board, cell_1, cell_2)
-    cost_proposed = boardCost(board_proposed)
+    print("cost before: ", boardCost(current_board))
+    board_proposed, (cell_1, cell_2) = proposedState(current_board, initial_board)
+    current_cost = rowColCost(current_board, cell_1[0], cell_1[1]) + rowColCost(current_board, cell_2[0], cell_2[1])
+    cost_proposed = rowColCost(board_proposed, cell_1[0], cell_1[1]) + rowColCost(board_proposed, cell_2[0], cell_2[1])
     print("cost after: ", cost_proposed)
-    delta_cost = cost_proposed - cost
+    delta_cost = cost_proposed - current_cost
     print(delta_cost)
     prob = math.exp(-delta_cost / temp)
     if np.random.uniform(1,0,1) < prob:
         return board_proposed, delta_cost
     else:
-        return sudoku_board, 0
+        return current_board, 0

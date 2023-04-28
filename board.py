@@ -88,7 +88,7 @@ class Board:
         """
         return self.grid[:, col]
 
-    def getSubgrid(self, row, col):
+    def getSubgrid(self, row, col, fixed=False):
         """
         Get the 3x3 subgrid containing the given row and column.
 
@@ -101,4 +101,18 @@ class Board:
         """
         row_start = row - row % 3
         col_start = col - col % 3
+        if fixed:
+            return self.fixedValues[row_start : row_start + 3, col_start : col_start + 3]
         return self.grid[row_start : row_start + 3, col_start : col_start + 3]
+
+    def getSubgridSum(self, subgrid):
+        """
+        Get the sum of the values in a given subgrid.
+
+        args:
+            subgrid(numpy.ndarray): a 3x3 subgrid
+
+        returns:
+            (int) the sum of the values in the given subgrid
+        """
+        return np.sum(subgrid)
