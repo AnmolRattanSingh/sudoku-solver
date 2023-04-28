@@ -177,13 +177,11 @@ def chooseNewBoard(current_board, initial_board, cost, temp):
     returns:
         (Board) the new board
     """
-    print("cost before: ", boardCost(current_board))
     board_proposed, (cell_1, cell_2) = proposedState(current_board, initial_board)
     current_cost = rowColCost(current_board, cell_1[0], cell_1[1]) + rowColCost(current_board, cell_2[0], cell_2[1])
     cost_proposed = rowColCost(board_proposed, cell_1[0], cell_1[1]) + rowColCost(board_proposed, cell_2[0], cell_2[1])
     print("cost after: ", cost_proposed)
     delta_cost = cost_proposed - current_cost
-    print(delta_cost)
     prob = math.exp(-delta_cost / temp)
     if np.random.uniform(1,0,1) < prob:
         return board_proposed, delta_cost
