@@ -28,7 +28,7 @@ def randomizeSudoku(board):
 
     return random_board
 
-def notFixedInSubgrid(board, chosen_subgrid_idx):
+def notFixedInSubgrid(board, row, col):
     """
     Find all the cells in a subgrid (3x3) that are not fixed (mutable).
     
@@ -42,10 +42,14 @@ def notFixedInSubgrid(board, chosen_subgrid_idx):
     not_fixed_in_subgrid = []
     fixed_board = board.fixedValues
 
-    for r in range(3):
-        for c in range(3):
-            if fixed_board[r + chosen_subgrid_idx[0], c + chosen_subgrid_idx[1]] == 0:
-                not_fixed_in_subgrid.append([r + chosen_subgrid_idx[0], c + chosen_subgrid_idx[1]])
+    row_start = row - row % 3
+    col_start = col - col % 3
+
+    for r in range(row_start, row_start + 3):
+        for c in range(col_start, col_start + 3):
+            if fixed_board[r][c] == 0:
+                not_fixed_in_subgrid.append([r, c])
+
     return not_fixed_in_subgrid
 
 def selectTwoCells(board):
@@ -60,7 +64,7 @@ def selectTwoCells(board):
         returned [(r, c), (r, c)]
     """
     chosen_subgrid_idx = [random.choice([0, 3, 6]), random.choice([0, 3, 6])]
-    not_fixed_values = notFixedInSubgrid(board, chosen_subgrid_idx)
+    not_fixed_values = notFixedInSubgrid(board, *chosen_subgrid_idx)
     cell_1 = random.choice(not_fixed_values)
     not_fixed_values.remove(cell_1)
     cell_2 = random.choice(not_fixed_values)
