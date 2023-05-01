@@ -1,6 +1,7 @@
 from board import Board
 import board_util as bu
 import time
+import numpy as np
 
 puzzle = [0, 0, 3, 0, 2, 0, 6, 0, 0,
           9, 0, 0, 3, 0, 5, 0, 0, 1,
@@ -13,7 +14,7 @@ puzzle = [0, 0, 3, 0, 2, 0, 6, 0, 0,
           0, 0, 5, 0, 1, 0, 3, 0, 0]
 
 board = Board(puzzle)
-print("Initial Sudoku: ", board)
+print("Initial board:", board)
 time.sleep(3)
 
 # If temperature reaches 0 and solution is still not found, restart process with new random Sudoku
@@ -21,6 +22,8 @@ print("Generating random Sudoku solution from scratch")
 time.sleep(3)
 solution_found = False
 
+# time how long it takes to find a solution
+start_time = time.time()
 while not solution_found:
     temp_decrease = 0.99 # Decay rate for temperature
     stuck_counter = 0 # Counter for number of times worse solution is accepted
@@ -65,3 +68,6 @@ while not solution_found:
             print("Solution Found: ", bu.boardCost(temp_board))
             print(temp_board)
             break
+
+# Print time taken to find solution
+print("Time taken: ", time.time() - start_time)

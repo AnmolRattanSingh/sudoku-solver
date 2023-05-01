@@ -158,7 +158,7 @@ def totalIterations(board):
     returns:
         (int) the total number of iterations to run for each temperature
     """
-    return np.count_nonzero(board.grid == 0) ** 2
+    return int(np.count_nonzero(board.grid == 0) ** 0.5)
 
 def proposedState(current_board, initial_board):
     # pass in random subgrid to getSubgridSum

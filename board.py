@@ -1,10 +1,14 @@
 import numpy as np
 
-"""
-Board class that represents a Sudoku board as a numpy array of size 9x9. This includes getters and
-setters for rows, columns, and subgrids.
-"""
 class Board:
+    """
+    Board class that represents a Sudoku board as a numpy array of size 9x9. This includes getters and
+    setters for rows, columns, and subgrids.
+
+    attributes:
+        grid(numpy.ndarray): a 9x9 numpy array representing the Sudoku board
+        fixedValues(numpy.ndarray): a 9x9 numpy array representing the fixed values on the Sudoku board with 1s
+    """
     def __init__(self, puzzle):
         """
         Initialize the board with a np.array representing a

@@ -1,5 +1,5 @@
 """
-Tests for the data analysis functions
+Tests for the Board class
 """
 import pytest
 from board import Board
