@@ -139,7 +139,7 @@ def initialTemp(board):
     """
     costs = []
 
-    for _ in range(10):
+    for _ in range(200):
         cell_1, cell_2 = selectTwoCells(board)
         board_proposed = flipCells(board, cell_1, cell_2)
         costs.append(boardCost(board_proposed))
