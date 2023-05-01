@@ -94,14 +94,17 @@ def flipCells(board, cell_1, cell_2):
 
 def rowColCost(board, r, c):
     """
-    Calculate the cost of a row on the board.
+    Calculate the sum of the cost of given row and column of the board.
+    The cost of a row or column is equal to the number of duplicate values
+    in the row or column.
 
     args:
-        board(Board): the board whose row cost is to be calculated
+        board(Board): the board whose row and column cost is to be calculated
         r(int): the row to calculate the cost for
+        c(int): the column to calculate the cost for
 
     returns:
-        (int) the cost of the row
+        (int) the cost of the row + the cost of the column
     """
     return (9 - len(np.unique(board.getRow(r))) + (9 - len(np.unique(board.getCol(c)))))
 
@@ -155,7 +158,7 @@ def totalIterations(board):
     returns:
         (int) the total number of iterations to run for each temperature
     """
-    return len(np.where(board.fixedValues == 0)) ** 2
+    return np.count_nonzero(board.grid == 0) ** 2
 
 def proposedState(current_board, initial_board):
     # pass in random subgrid to getSubgridSum
