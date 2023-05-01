@@ -4,7 +4,7 @@
 
 ## Overview
 
-This project implements a simulated annealing algorithm to solve Sudoku puzzles. Sudoku is a logic puzzle that involves filling a 9x9 grid with numbers so that each row, column, and 3x3 subgrid contains all the numbers from 1 to 9. The algorithm uses a cost function to evaluate the quality of a particular Sudoku board configuration and then iteratively improves upon it using a combination of randomization and probability-based moves. The algorithm terminates when a board configuration with zero errors is found or when a pre-defined maximum number of iterations is reached.
+This project implements a simulated annealing algorithm to solve Sudoku puzzles. Sudoku is a logic puzzle that involves filling a 9x9 grid with numbers so that each row, column, and 3x3 subgrid contains all the numbers from 1 to 9. Since generalized Sudoku is NP-Complete, heuristics or approximationa algorithms are used to find solutions to the problem. The simulated annealing heuristic algorithm uses a cost function to evaluate the quality of a particular Sudoku board configuration and then iteratively improves upon it using a combination of randomization and probability-based moves. The algorithm terminates when a board configuration with zero errors is found or when a pre-defined maximum number of iterations is reached.
 
 ## Usage
 
