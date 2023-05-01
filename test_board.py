@@ -64,8 +64,12 @@ GET_COL_CASES = [
     
 GET_SUBGRID_CASES = [
     # Test that a valid subgrid can be accessed and all values are correct
-    ([0, 0, 3, 9, 0, 0, 0, 0, 1,], (0, 0)),
-    ([0, 0, 3, 0, 1, 8, 0, 8, 1], (1, 1)),
+    ([[0, 0, 3, 9, 0, 0, 0, 0, 1], 13], (0, 0)),
+    ([[0, 2, 0, 3, 0, 5, 8, 0, 6], 24], (0, 3)),
+
+    # Test that a valid subgrid can be accessed for a point not at the top left corner of the grid
+    ([[0, 0, 3, 9, 0, 0, 0, 0, 1], 13], (1, 1)),
+    ([[0, 2, 0, 3, 0, 5, 8, 0, 6], 24], (2, 4)),
 ]
 
 def test_init_shape():
@@ -153,8 +157,26 @@ def test_getCol_shape(col_val, col_num):
 @pytest.mark.parametrize("subgrid_val, position", GET_SUBGRID_CASES)
 def test_getSubgrid(subgrid_val, position):
     """
+    Test the getSubgrid function by checking that a subgrid is returned with all the right values.
     """
     board = Board(PUZZLE)
-    this_subgrid = list(board.getSubgrid(position[0], position[1]))
-    assert this_subgrid == subgrid_val
+    this_subgrid = board.getSubgrid(position[0], position[1]).reshape(1, 9).tolist()[0]
+    assert this_subgrid == subgrid_val[0]
 
+@pytest.mark.parametrize("subgrid_val, position", GET_SUBGRID_CASES)
+def test_getSubgrid_shape(subgrid_val, position):
+    """
+    Test the getSubgrid function by checking that a subgrid is returned with the correct shape.
+    """
+    board = Board(PUZZLE)
+    this_subgrid = board.getSubgrid(position[0], position[1])
+    assert this_subgrid.shape == (3, 3)
+
+@pytest.mark.parametrize("subgrid_val, position", GET_SUBGRID_CASES)
+def test_getSubgridSum(subgrid_val, position):
+    """
+    Test that getSubgridSum works by ensuring that the sum of the subgrid is correct.
+    """
+    board = Board(PUZZLE)
+    this_subgrid = board.getSubgrid(position[0], position[1])
+    assert board.getSubgridSum(this_subgrid) == subgrid_val[1]
