@@ -91,6 +91,21 @@ def test_rowColCost(cost, row, col):
     """
     assert rowColCost(TEST_BOARD, row, col) == cost
 
+def test_boardCost():
+    """
+    Test that the boardCost function returns the correct value
+    """
+    this_puzzle = [4, 8, 3, 9, 2, 1, 6, 5, 7,
+                   9, 1, 7, 3, 4, 5, 8, 2, 1,
+                   2, 5, 1, 8, 7, 6, 4, 9, 3, 
+                   5, 4, 8, 1, 3, 2, 9, 7, 6, 
+                   7, 2, 9, 5, 6, 4, 1, 3, 8, 
+                   1, 3, 6, 7, 9, 8, 2, 4, 5,  
+                   3, 7, 2, 6, 8, 9, 5, 1, 4, 
+                   8, 1, 4, 2, 5, 3, 7, 6, 9, 
+                   6, 9, 5, 4, 1, 7, 3, 8, 2] 
+    assert boardCost(Board(this_puzzle)) == 2
+
 def test_totalIterations():
     """
     Test that the totalIterations function returns the correct number of iterations
