@@ -30,7 +30,7 @@ The algorithm is implemented in Python and consists of two main components: the 
 
 ### `Board` Class
 
-The `Board` class represents a Sudoku board configuration. It contains methods for initializing a board with a given puzzle, setting and getting cell values, and checking whether a particular cell value is valid.
+The `Board` class represents a Sudoku board configuration. It contains methods for initializing a board with a given puzzle, setting and getting cell values, and checking whether a particular cell value is valid. We use numpy arrays to represent the board and store the values of the cells. Numpy allows us to easily perform complex operations on the board using it's built-in functions.
 
 ### `board_util` Module
 
