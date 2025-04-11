@@ -42,6 +42,8 @@ The `board_util` module contains various utility functions used by the simulated
 - `totalIterations(board)`: calculates the total number of iterations to be performed by the simulated annealing algorithm based on the size of the Sudoku board. The principled approach to find the total number of iterations is to calculate the square of the number of mutable cells on the board. But we found out during our testing that using the square root gave faster results.
 - `boardCost(board)`: calculates the cost of the board based on the number of errors in the rows and columns
 
+## [Sudoku to SAT Proof](https://drive.google.com/file/d/1n8llA-0IepBI1WeAf347SxJGa6MJgyLG/view?usp=sharing)
+
 ## Conclusion
 
 Simulated annealing is a powerful optimization algorithm that can be used to solve a wide range of optimization problems, including Sudoku puzzles. The algorithm is relatively simple to implement and can be used to find near-optimal solutions to large and complex problems.
